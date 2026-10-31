@@ -1,0 +1,28 @@
+[package]
+name = "mygrep"
+version = "1.0.0"
+edition = "2021"
+description = "Desktop text search utility"
+license = "MIT"
+
+[features]
+default = ["gui"]
+gui = ["dep:eframe", "dep:rfd"]
+
+[dependencies]
+regex = "1.11"
+encoding_rs = "0.8"
+walkdir = "2.5"
+csv = "1.3"
+eframe = { version = "0.31.1", optional = true, default-features = false, features = ["default_fonts", "glow", "x11", "wayland"] }
+rfd = { version = "0.15.3", optional = true }
+
+[[bin]]
+name = "mygrep"
+path = "src/main.rs"
+required-features = ["gui"]
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true
